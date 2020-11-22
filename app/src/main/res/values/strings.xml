@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NetworkCalling</string>
+    <string name="name">Имя:</string>
+    <string name="salary">Зарплата:</string>
+    <string name="age">Возраст:</string>
+    <string name="detailed_info">Detailed info about user</string>
+</resources>
