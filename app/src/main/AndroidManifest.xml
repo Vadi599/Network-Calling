@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".profile.ProfileActivity" />
 
     </application>
 

@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.networkcalling.ProfileActivity;
+import com.example.networkcalling.profile.ProfileActivity;
 import com.example.networkcalling.adapter.EmployeesAdapter;
 import com.example.networkcalling.databinding.ActivityMainBinding;
 import com.example.networkcalling.model.Employee;

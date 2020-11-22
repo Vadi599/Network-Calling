@@ -68,4 +68,24 @@ public class Repository implements IRepository {
         cv.put(EMPLOYEE_ID, employeeId);
         db.insert(DBHelper.TABLE_NAME, null, cv);
     }
+
+    @Override
+    public Employee getEmployee(long id) {
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery("select * from " + DBHelper.TABLE_NAME + " where id = ?", new String[]{String.valueOf(id)});
+        boolean isExistDatabaseRecords = cursor.moveToFirst();
+        if (isExistDatabaseRecords) {
+            int idColIndex = cursor.getColumnIndex("id");
+            int employeeNameIndex = cursor.getColumnIndex("employeeName");
+            int employeeSalaryIndex = cursor.getColumnIndex("employeeSalary");
+            int employeeAgeIndex = cursor.getColumnIndex("employeeAge");
+            long employeeId = cursor.getLong(idColIndex);
+            String employeeName = cursor.getString(employeeNameIndex);
+            String employeeSalary = cursor.getString(employeeSalaryIndex);
+            String employeeAge = cursor.getString(employeeAgeIndex);
+            Employee employee = new Employee(employeeId, employeeName, employeeSalary, employeeAge);
+            return employee;
+        } else {
+            return null;
+        }
+    }
 }

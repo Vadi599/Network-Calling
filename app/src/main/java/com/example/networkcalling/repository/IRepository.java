@@ -8,6 +8,8 @@ public interface IRepository {
 
     List<Employee> getEmployees();
 
+    Employee getEmployee(long id);
+
     void deleteAllRows();
 
     void insertEmployee(Employee employee);
