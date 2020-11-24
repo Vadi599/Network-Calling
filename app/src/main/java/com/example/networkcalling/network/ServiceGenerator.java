@@ -10,15 +10,15 @@ public class ServiceGenerator {
     private static String BASE_URL = "http://dummy.restapiexample.com/api/v1/";
 
 
-    /*private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor()
+    private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY);
 
     private static OkHttpClient.Builder httpClient =
-            new OkHttpClient.Builder().addInterceptor(logging);*/
+            new OkHttpClient.Builder().addInterceptor(logging);
 
     private static Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
             .baseUrl(BASE_URL)
-            //.client(httpClient.build())
+            .client(httpClient.build())
             .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = retrofitBuilder.build();

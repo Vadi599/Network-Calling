@@ -22,5 +22,4 @@ public class AppApiClient {
         return ServiceGenerator.getApiService()
                 .getEmployee(id);
     }
-
 }

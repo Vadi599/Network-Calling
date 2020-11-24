@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NetworkCalling"
         android:usesCleartextTraffic="true">
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,6 +1,7 @@
 package com.example.networkcalling.profile;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.networkcalling.model.Employee;
 import com.example.networkcalling.model.EmployeeResponse;
@@ -39,7 +40,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             @Override
             public void onResponse(Call<EmployeeResponse> call, Response<EmployeeResponse> response) {
                 EmployeeResponse employeeResponse = response.body();
-                view.showEmployeeProfile(employeeResponse.getEmployee());
+                if (employeeResponse != null) {
+                    view.showEmployeeProfile(employeeResponse.getEmployee());
+                } else {
+                    view.showMessage("Ошибка! Пользователь не найден. ID = "+id);
+                }
             }
 
             @Override
