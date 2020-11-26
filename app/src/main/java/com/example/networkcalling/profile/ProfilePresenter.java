@@ -75,6 +75,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         if (obtainedEmployee != null) {
             ourCompanyRepository.insertEmployee(obtainedEmployee);
             view.showSuccessfulAddedToCompany();
+            view.showButtonsState(true);
         }
     }
 
@@ -83,6 +84,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         if (obtainedEmployee != null) {
             ourCompanyRepository.deleteConcreteEmployee(obtainedEmployee.getId());
             view.showSuccessfulDeletedFromCompany();
+            view.showButtonsState(false);
         }
     }
 
