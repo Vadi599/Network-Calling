@@ -1,8 +1,7 @@
 package com.example.networkcalling.profile;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -14,18 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.networkcalling.databinding.ActivityProfileBinding;
 import com.example.networkcalling.main.MainActivity;
 import com.example.networkcalling.model.Employee;
-import com.example.networkcalling.model.EmployeeResponse;
-import com.example.networkcalling.network.AppApiClient;
-import com.example.networkcalling.repository.DBHelper;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.networkcalling.our_company.OurCompanyActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ProfileActivity extends AppCompatActivity implements ProfileContract.View {
 
     private ActivityProfileBinding binding;
-    private ProfilePresenter presenter;
+    private ProfileContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
                 presenter.getEmployeeDataFromDatabase(id);
             }
         }
+        binding.btnAddToOurCompany.setOnClickListener(v -> presenter.addToCompanyEmployee());
     }
 
     @Override
@@ -66,6 +61,19 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    @Override
+    public void showSuccessfulAddedToCompany() {
+        Snackbar.make(binding.btnAddToOurCompany, "Успешно добавлен пользователь в НАШУ компанию", Snackbar.LENGTH_SHORT)
+                .setAction("Список сотрудников", v -> {
+                    showOurCompanyActivity();
+                }).show();
+    }
+
+    public void showOurCompanyActivity() {
+        Intent intent = new Intent(this, OurCompanyActivity.class);
+        startActivity(intent);
     }
 
 }

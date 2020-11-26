@@ -4,4 +4,5 @@
     <string name="salary">Зарплата:</string>
     <string name="age">Возраст:</string>
     <string name="detailed_info">Detailed info about user</string>
+    <string name="add_to_company">Добавить в компанию</string>
 </resources>

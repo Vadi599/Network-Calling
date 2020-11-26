@@ -6,8 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Database_workers";
-    public static final String TABLE_NAME = "workers";
-    public static final int VERSION = 1;
+    public static final String TABLE_NAME_ALL_WORKERS = "workers";
+    public static final String TABLE_NAME_OUR_COMPANY_WORKERS = "our_company_workers";
+    public static final int VERSION = 2;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -15,16 +16,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + "(" +
+        db.execSQL("create table " + TABLE_NAME_ALL_WORKERS + "(" +
                 "id integer primary key autoincrement," +
                 "employeeName text," +
                 "employeeSalary text," +
-                "employeeAge text"+
+                "employeeAge text" +
                 ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (oldVersion == 1 && newVersion == 2) {
+            db.execSQL("create table " + TABLE_NAME_OUR_COMPANY_WORKERS + "(" +
+                    "id integer primary key autoincrement," +
+                    "employeeName text," +
+                    "employeeSalary text," +
+                    "employeeAge text" +
+                    ");");
+        }
     }
 }

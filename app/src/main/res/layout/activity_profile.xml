@@ -95,6 +95,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -124,6 +125,13 @@
                 android:background="@drawable/profile_rect_stong_field"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddToOurCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_company"
+            />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

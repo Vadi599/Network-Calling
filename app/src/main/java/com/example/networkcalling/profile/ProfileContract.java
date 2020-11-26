@@ -7,11 +7,15 @@ public interface ProfileContract {
         void showEmployeeProfile(Employee employee);
 
         void showMessage(String message);
+
+        void showSuccessfulAddedToCompany();
     }
 
     interface Presenter {
         void getEmployeeDataFromDatabase(long id);
 
         void getEmployeeData(long id);
+
+        void addToCompanyEmployee();
     }
 }

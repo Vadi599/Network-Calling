@@ -1,13 +1,14 @@
 package com.example.networkcalling.profile;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.example.networkcalling.model.Employee;
 import com.example.networkcalling.model.EmployeeResponse;
 import com.example.networkcalling.network.AppApiClient;
-import com.example.networkcalling.repository.IRepository;
-import com.example.networkcalling.repository.Repository;
+import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
+import com.example.networkcalling.repository.all_employees.AllEmployeesRepository;
+import com.example.networkcalling.repository.our_company_employees.IOurCompanyRepository;
+import com.example.networkcalling.repository.our_company_employees.OurCompanyRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,17 +16,21 @@ import retrofit2.Response;
 
 public class ProfilePresenter implements ProfileContract.Presenter {
     private AppApiClient appApiClient = AppApiClient.get();
-    private IRepository repository;
+    private IAllEmployeesRepository allWorkersRepository;
+    private IOurCompanyRepository ourCompanyRepository;
     private ProfileContract.View view;
+
+    private Employee obtainedEmployee;
 
     public ProfilePresenter(ProfileContract.View view, Context context) {
         this.view = view;
-        repository = new Repository(context);
+        allWorkersRepository = new AllEmployeesRepository(context);
+        ourCompanyRepository = new OurCompanyRepository(context);
     }
 
     @Override
     public void getEmployeeDataFromDatabase(long id) {
-        Employee employee = repository.getEmployee(id);
+        Employee employee = allWorkersRepository.getEmployee(id);
         if (employee == null) {
             view.showMessage("Пользователь не найден. ID = " + id);
         } else {
@@ -41,7 +46,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             public void onResponse(Call<EmployeeResponse> call, Response<EmployeeResponse> response) {
                 EmployeeResponse employeeResponse = response.body();
                 if (employeeResponse != null) {
-                    view.showEmployeeProfile(employeeResponse.getEmployee());
+                    obtainedEmployee = employeeResponse.getEmployee();
+                    view.showEmployeeProfile(obtainedEmployee);
                 } else {
                     view.showMessage("Ошибка! Пользователь не найден. ID = "+id);
                 }
@@ -61,5 +67,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+    }
+
+
+    @Override
+    public void addToCompanyEmployee() {
+        if (obtainedEmployee != null){
+            ourCompanyRepository.insertEmployee(obtainedEmployee);
+            view.showSuccessfulAddedToCompany();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.networkcalling.repository;
+package com.example.networkcalling.repository.all_employees;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.networkcalling.model.Employee;
+import com.example.networkcalling.repository.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repository implements IRepository {
+public class AllEmployeesRepository implements IAllEmployeesRepository {
 
     private final String EMPLOYEE_NAME = "employeeName";
     private final String EMPLOYEE_SALARY = "employeeSalary";
@@ -20,14 +21,14 @@ public class Repository implements IRepository {
     private DBHelper dbHelper;
     SQLiteDatabase db;
 
-    public Repository(Context context) {
+    public AllEmployeesRepository(Context context) {
         dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
     @Override
     public List<Employee> getEmployees() {
-        Cursor cursor = db.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(DBHelper.TABLE_NAME_ALL_WORKERS, null, null, null, null, null, null);
         boolean isExistDatabaseRecords = cursor.moveToFirst();
         ArrayList<Employee> employees = new ArrayList<>();
         if (isExistDatabaseRecords) {
@@ -52,7 +53,7 @@ public class Repository implements IRepository {
 
     @Override
     public void deleteAllRows() {
-        db.delete(DBHelper.TABLE_NAME, null, null);
+        db.delete(DBHelper.TABLE_NAME_ALL_WORKERS, null, null);
     }
 
     @Override
@@ -66,12 +67,12 @@ public class Repository implements IRepository {
         cv.put(EMPLOYEE_SALARY, employeeSalary);
         cv.put(EMPLOYEE_AGE, employeeAge);
         cv.put(EMPLOYEE_ID, employeeId);
-        db.insert(DBHelper.TABLE_NAME, null, cv);
+        db.insert(DBHelper.TABLE_NAME_ALL_WORKERS, null, cv);
     }
 
     @Override
     public Employee getEmployee(long id) {
-        Cursor cursor = dbHelper.getReadableDatabase().rawQuery("select * from " + DBHelper.TABLE_NAME + " where id = ?", new String[]{String.valueOf(id)});
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery("select * from " + DBHelper.TABLE_NAME_ALL_WORKERS + " where id = ?", new String[]{String.valueOf(id)});
         boolean isExistDatabaseRecords = cursor.moveToFirst();
         if (isExistDatabaseRecords) {
             int idColIndex = cursor.getColumnIndex("id");

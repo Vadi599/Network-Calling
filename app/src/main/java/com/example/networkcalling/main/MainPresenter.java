@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.networkcalling.model.Employee;
 import com.example.networkcalling.model.EmployeesResponse;
 import com.example.networkcalling.network.AppApiClient;
-import com.example.networkcalling.repository.IRepository;
-import com.example.networkcalling.repository.Repository;
+import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
+import com.example.networkcalling.repository.all_employees.AllEmployeesRepository;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ import retrofit2.Response;
 public class MainPresenter implements MainContract.Presenter {
 
     private AppApiClient appApiClient = AppApiClient.get();
-    private IRepository repository;
+    private IAllEmployeesRepository repository;
     private MainContract.View view;
 
     public MainPresenter(MainContract.View view, Context context) {
         this.view = view;
-        repository = new Repository(context);
+        repository = new AllEmployeesRepository(context);
     }
 
     @Override
