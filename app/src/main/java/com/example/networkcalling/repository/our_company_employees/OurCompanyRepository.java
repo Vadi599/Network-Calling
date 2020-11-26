@@ -58,7 +58,7 @@ public class OurCompanyRepository implements IOurCompanyRepository {
 
     @Override
     public void deleteConcreteEmployee(long id) {
-        db.delete(DBHelper.TABLE_NAME_OUR_COMPANY_WORKERS, "id = "+ id, null);
+        db.delete(DBHelper.TABLE_NAME_OUR_COMPANY_WORKERS, "id = " + id, null);
     }
 
     @Override
@@ -73,6 +73,19 @@ public class OurCompanyRepository implements IOurCompanyRepository {
         cv.put(EMPLOYEE_AGE, employeeAge);
         cv.put(EMPLOYEE_ID, employeeId);
         db.insert(DBHelper.TABLE_NAME_OUR_COMPANY_WORKERS, null, cv);
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        String employeeName = employee.getEmployeeName();
+        String employeeSalary = employee.getEmployeeSalary();
+        String employeeAge = employee.getEmployeeAge();
+        String employeeId = String.valueOf(employee.getId());
+        ContentValues cv = new ContentValues();
+        cv.put(EMPLOYEE_NAME, employeeName);
+        cv.put(EMPLOYEE_SALARY, employeeSalary);
+        cv.put(EMPLOYEE_AGE, employeeAge);
+        db.update(DBHelper.TABLE_NAME_OUR_COMPANY_WORKERS, cv, "id = ?", new String[]{employeeId});
     }
 
     @Override

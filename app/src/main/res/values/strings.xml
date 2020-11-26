@@ -11,4 +11,12 @@
     <string name="cancel">Отмена</string>
     <string name="delete">Удалить</string>
     <string name="ok">OK</string>
+    <string name="show_company">Показать компанию</string>
+    <string name="enter_the_new_name">введите новое имя</string>
+    <string name="employee_name">Имя:</string>
+    <string name="employee_salary">Зарплата:</string>
+    <string name="enter_the_new_salary">Введите новую зарплату</string>
+    <string name="employee_age">Возраст:</string>
+    <string name="enter_the_new_age">Введите новый возраст</string>
+    <string name="edit_employee">Редактирование работника</string>
 </resources>

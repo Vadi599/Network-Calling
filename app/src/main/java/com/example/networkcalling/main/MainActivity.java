@@ -4,10 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.core.view.MenuItemCompat;
 
+import com.example.networkcalling.R;
+import com.example.networkcalling.our_company.OurCompanyActivity;
 import com.example.networkcalling.profile.ProfileActivity;
 import com.example.networkcalling.adapter.EmployeesAdapter;
 import com.example.networkcalling.databinding.ActivityMainBinding;
@@ -36,6 +43,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         } else {
             Toast.makeText(this, "Нет инета тянем из БД", Toast.LENGTH_SHORT).show();
             presenter.getDataFromDatabase();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_company:
+                Intent intent = new Intent(this, OurCompanyActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

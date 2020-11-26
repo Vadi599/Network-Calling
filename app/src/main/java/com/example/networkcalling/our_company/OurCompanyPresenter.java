@@ -28,4 +28,9 @@ public class OurCompanyPresenter implements OurCompanyContract.Presenter {
         }
     }
 
+    @Override
+    public void editEmployee(Employee employee) {
+        repository.updateEmployee(employee);
+        getOurCompanyInfo();
+    }
 }

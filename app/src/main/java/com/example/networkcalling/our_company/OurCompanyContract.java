@@ -15,6 +15,8 @@ public interface OurCompanyContract {
     interface Presenter {
 
         void getOurCompanyInfo();
+
+        void editEmployee(Employee employee);
     }
 
 }
