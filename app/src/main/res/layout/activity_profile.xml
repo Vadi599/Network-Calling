@@ -25,18 +25,18 @@
             android:id="@+id/tvHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/profile_heading"
             android:fontFamily="sans-serif-thin"
             android:text="@string/detailed_info"
-            android:background="@drawable/profile_heading"
-            android:layout_gravity="center"
             android:textColor="@android:color/holo_blue_dark"
-            android:textStyle="italic"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textStyle="italic" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="60dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/profile_name"
-                android:textSize="17sp"
-                android:text="@string/name" />
+                android:text="@string/name"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tvName"
@@ -58,8 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/profile_rect_stong_field"
-                android:textStyle="bold"
                 android:textSize="17sp"
+                android:textStyle="bold"
                 tools:text="12312312312" />
         </LinearLayout>
 
@@ -79,18 +79,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/profile_salary"
+                android:text="@string/salary"
                 android:textColor="@color/white"
-                android:textSize="17sp"
-                android:text="@string/salary" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tvSalary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:textStyle="bold"
+                android:background="@drawable/profile_rect_stong_field"
                 android:textSize="17sp"
-                android:background="@drawable/profile_rect_stong_field"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -111,8 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/profile_age"
-                android:textSize="17sp"
-                android:text="@string/age" />
+                android:text="@string/age"
+                android:textSize="17sp" />
 
 
             <TextView
@@ -120,9 +120,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:textStyle="bold"
+                android:background="@drawable/profile_rect_stong_field"
                 android:textSize="17sp"
-                android:background="@drawable/profile_rect_stong_field"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -131,7 +131,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_to_company"
-            />
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnDeleteToOurCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_from_company"
+            android:visibility="gone" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

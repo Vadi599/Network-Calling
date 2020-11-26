@@ -9,6 +9,11 @@ public interface ProfileContract {
         void showMessage(String message);
 
         void showSuccessfulAddedToCompany();
+
+        void showSuccessfulDeletedFromCompany();
+
+        void showButtonsState(boolean isExistUserInOurCompany);
+
     }
 
     interface Presenter {
@@ -17,5 +22,9 @@ public interface ProfileContract {
         void getEmployeeData(long id);
 
         void addToCompanyEmployee();
+
+        void checkUserExistInOurCompany(Employee employee);
+
+        void deleteFromCompanyEmployee();
     }
 }

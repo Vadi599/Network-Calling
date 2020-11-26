@@ -57,6 +57,11 @@ public class OurCompanyRepository implements IOurCompanyRepository {
     }
 
     @Override
+    public void deleteConcreteEmployee(long id) {
+        db.delete(DBHelper.TABLE_NAME_OUR_COMPANY_WORKERS, "id = "+ id, null);
+    }
+
+    @Override
     public void insertEmployee(Employee employee) {
         String employeeName = employee.getEmployeeName();
         String employeeSalary = employee.getEmployeeSalary();

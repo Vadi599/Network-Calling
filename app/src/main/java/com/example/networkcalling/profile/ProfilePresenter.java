@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.networkcalling.model.Employee;
 import com.example.networkcalling.model.EmployeeResponse;
 import com.example.networkcalling.network.AppApiClient;
-import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
 import com.example.networkcalling.repository.all_employees.AllEmployeesRepository;
+import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
 import com.example.networkcalling.repository.our_company_employees.IOurCompanyRepository;
 import com.example.networkcalling.repository.our_company_employees.OurCompanyRepository;
 
@@ -49,7 +49,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     obtainedEmployee = employeeResponse.getEmployee();
                     view.showEmployeeProfile(obtainedEmployee);
                 } else {
-                    view.showMessage("Ошибка! Пользователь не найден. ID = "+id);
+                    view.showMessage("Ошибка! Пользователь не найден. ID = " + id);
                 }
             }
 
@@ -72,9 +72,26 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void addToCompanyEmployee() {
-        if (obtainedEmployee != null){
+        if (obtainedEmployee != null) {
             ourCompanyRepository.insertEmployee(obtainedEmployee);
             view.showSuccessfulAddedToCompany();
         }
     }
+
+    @Override
+    public void deleteFromCompanyEmployee() {
+        if (obtainedEmployee != null) {
+            ourCompanyRepository.deleteConcreteEmployee(obtainedEmployee.getId());
+            view.showSuccessfulDeletedFromCompany();
+        }
+    }
+
+    @Override
+    public void checkUserExistInOurCompany(Employee employee) {
+        Employee employeeFromDatabase = ourCompanyRepository.getEmployee(employee.getId());
+        boolean isExistUserInOurCompany = employeeFromDatabase != null;
+        view.showButtonsState(isExistUserInOurCompany);
+    }
+
+
 }

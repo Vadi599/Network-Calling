@@ -12,6 +12,8 @@ public interface IOurCompanyRepository {
 
     void deleteAllRows();
 
+    void deleteConcreteEmployee(long id);
+
     void insertEmployee(Employee employee);
 
 }

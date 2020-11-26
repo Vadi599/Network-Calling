@@ -5,4 +5,9 @@
     <string name="age">Возраст:</string>
     <string name="detailed_info">Detailed info about user</string>
     <string name="add_to_company">Добавить в компанию</string>
+    <string name="delete_from_company">Удалить из нашей компании</string>
+    <string name="attention">Внимание!</string>
+    <string name="are_you_sure_you_want_delete_user_from_our_company">Вы уверены что хотите удалить пользователя из Вашей компании ?</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
 </resources>

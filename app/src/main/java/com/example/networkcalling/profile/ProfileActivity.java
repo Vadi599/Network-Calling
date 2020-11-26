@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.networkcalling.R;
 import com.example.networkcalling.databinding.ActivityProfileBinding;
 import com.example.networkcalling.main.MainActivity;
 import com.example.networkcalling.model.Employee;
@@ -37,6 +39,20 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
             }
         }
         binding.btnAddToOurCompany.setOnClickListener(v -> presenter.addToCompanyEmployee());
+        binding.btnDeleteToOurCompany.setOnClickListener(v -> showDialogDeleteUser());
+    }
+
+    public void showDialogDeleteUser() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.attention)
+                .setMessage(R.string.are_you_sure_you_want_delete_user_from_our_company)
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    presenter.deleteFromCompanyEmployee();
+                    dialog.dismiss();
+                }).show();
     }
 
     @Override
@@ -48,8 +64,20 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
         // VISIBLE - view видимо
         // INVISIBLE - view не видимо, но контент остается на макете
         // GONE - view не видимо, контент исчезает из макета
+        presenter.checkUserExistInOurCompany(employee);
 
         binding.progressView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showButtonsState(boolean isExistUserInOurCompany) {
+        if (isExistUserInOurCompany) {
+            binding.btnAddToOurCompany.setVisibility(View.GONE);
+            binding.btnDeleteToOurCompany.setVisibility(View.VISIBLE);
+        } else {
+            binding.btnAddToOurCompany.setVisibility(View.VISIBLE);
+            binding.btnDeleteToOurCompany.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -65,7 +93,15 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
     @Override
     public void showSuccessfulAddedToCompany() {
-        Snackbar.make(binding.btnAddToOurCompany, "Успешно добавлен пользователь в НАШУ компанию", Snackbar.LENGTH_SHORT)
+        Snackbar.make(binding.btnAddToOurCompany, "Успешно добавлен пользователь в компанию", Snackbar.LENGTH_SHORT)
+                .setAction("Список сотрудников", v -> {
+                    showOurCompanyActivity();
+                }).show();
+    }
+
+    @Override
+    public void showSuccessfulDeletedFromCompany() {
+        Snackbar.make(binding.btnAddToOurCompany, "Успешно удалён пользователь из компанию", Snackbar.LENGTH_SHORT)
                 .setAction("Список сотрудников", v -> {
                     showOurCompanyActivity();
                 }).show();
