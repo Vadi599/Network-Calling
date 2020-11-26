@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.networkcalling.R;
 import com.example.networkcalling.databinding.ActivityProfileBinding;
+import com.example.networkcalling.databinding.CustomDialogDeleteBinding;
 import com.example.networkcalling.main.MainActivity;
 import com.example.networkcalling.model.Employee;
 import com.example.networkcalling.our_company.OurCompanyActivity;
@@ -43,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     }
 
     public void showDialogDeleteUser() {
+        /* Систменый диалог
         new AlertDialog.Builder(this)
                 .setTitle(R.string.attention)
                 .setMessage(R.string.are_you_sure_you_want_delete_user_from_our_company)
@@ -53,6 +55,24 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
                     presenter.deleteFromCompanyEmployee();
                     dialog.dismiss();
                 }).show();
+         */
+
+        // кастомный диалог
+        CustomDialogDeleteBinding customDialogDeleteBinding = CustomDialogDeleteBinding.inflate(getLayoutInflater());
+        customDialogDeleteBinding.tvTitle.setText(R.string.attention);
+        customDialogDeleteBinding.tvDescription.setText(R.string.are_you_sure_you_want_delete_user_from_our_company);
+
+        AlertDialog customAlertBuilder = new AlertDialog.Builder(this)
+                .setView(customDialogDeleteBinding.getRoot())
+                .create();
+
+        customDialogDeleteBinding.btnCancel.setOnClickListener(v -> { customAlertBuilder.dismiss(); });
+        customDialogDeleteBinding.btnOk.setOnClickListener(v -> {
+            presenter.deleteFromCompanyEmployee();
+            customAlertBuilder.dismiss();
+        });
+
+        customAlertBuilder.show();
     }
 
     @Override

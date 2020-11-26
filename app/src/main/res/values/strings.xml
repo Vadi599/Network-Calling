@@ -10,4 +10,5 @@
     <string name="are_you_sure_you_want_delete_user_from_our_company">Вы уверены что хотите удалить пользователя из Вашей компании ?</string>
     <string name="cancel">Отмена</string>
     <string name="delete">Удалить</string>
+    <string name="ok">OK</string>
 </resources>
