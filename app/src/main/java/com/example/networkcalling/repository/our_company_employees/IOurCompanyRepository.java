@@ -18,4 +18,5 @@ public interface IOurCompanyRepository {
 
     void updateEmployee(Employee employee);
 
+    void insertEmployeeWithoutId(Employee employee);
 }

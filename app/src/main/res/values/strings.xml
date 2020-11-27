@@ -19,4 +19,11 @@
     <string name="employee_age">Возраст:</string>
     <string name="enter_the_new_age">Введите новый возраст</string>
     <string name="edit_employee">Редактирование работника</string>
+    <string name="create_order_title">Create Employee</string>
+    <string name="add_employee">Добавление работника</string>
+    <string name="employee_add_name">Введите имя</string>
+    <string name="employee_add_salary">Введите зарплату</string>
+    <string name="employee_add_age">"Введите возраст "</string>
+    <string name="delete_employee_from_our_company">Удаление работника!</string>
+    <string name="delete_employee_from_this_company">Вы уверены, что хотите удалить этого работника из нашей компании?</string>
 </resources>

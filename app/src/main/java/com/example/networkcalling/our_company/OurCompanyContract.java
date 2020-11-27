@@ -17,6 +17,10 @@ public interface OurCompanyContract {
         void getOurCompanyInfo();
 
         void editEmployee(Employee employee);
+
+        void addEmployee(Employee employee);
+
+        void deleteFromOurCompanyEmployee(long id);
     }
 
 }

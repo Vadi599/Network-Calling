@@ -9,16 +9,16 @@ public class AppApiClient {
 
     static AppApiClient instance = new AppApiClient();
 
-    public static AppApiClient get(){
+    public static AppApiClient get() {
         return instance;
     }
 
-    public Call<EmployeesResponse> getEmployees(){
+    public Call<EmployeesResponse> getEmployees() {
         return ServiceGenerator.getApiService()
                 .getEmployees();
     }
 
-    public Call<EmployeeResponse> getEmployee(long id){
+    public Call<EmployeeResponse> getEmployee(long id) {
         return ServiceGenerator.getApiService()
                 .getEmployee(id);
     }

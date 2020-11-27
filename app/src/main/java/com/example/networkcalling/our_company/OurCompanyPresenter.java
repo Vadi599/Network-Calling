@@ -33,4 +33,16 @@ public class OurCompanyPresenter implements OurCompanyContract.Presenter {
         repository.updateEmployee(employee);
         getOurCompanyInfo();
     }
+
+    @Override
+    public void addEmployee(Employee employee) {
+        repository.insertEmployeeWithoutId(employee);
+        getOurCompanyInfo();
+    }
+
+    @Override
+    public void deleteFromOurCompanyEmployee(long id) {
+        repository.deleteConcreteEmployee(id);
+        getOurCompanyInfo();
+    }
 }

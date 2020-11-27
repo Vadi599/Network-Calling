@@ -76,6 +76,18 @@ public class OurCompanyRepository implements IOurCompanyRepository {
     }
 
     @Override
+    public void insertEmployeeWithoutId(Employee employee) {
+        String employeeName = employee.getEmployeeName();
+        String employeeSalary = employee.getEmployeeSalary();
+        String employeeAge = employee.getEmployeeAge();
+        ContentValues cv = new ContentValues();
+        cv.put(EMPLOYEE_NAME, employeeName);
+        cv.put(EMPLOYEE_SALARY, employeeSalary);
+        cv.put(EMPLOYEE_AGE, employeeAge);
+        db.insert(DBHelper.TABLE_NAME_OUR_COMPANY_WORKERS, null, cv);
+    }
+
+    @Override
     public void updateEmployee(Employee employee) {
         String employeeName = employee.getEmployeeName();
         String employeeSalary = employee.getEmployeeSalary();
