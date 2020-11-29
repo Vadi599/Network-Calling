@@ -58,7 +58,7 @@ public class MainPresenter implements MainContract.Presenter {
                         for (Employee employee : employeeList) {
                             repository.insertEmployee(employee);
                         }
-                        //view.showEmployees(employeeList);
+                        view.showEmployees(employeeList);
                     }
 
                     @Override

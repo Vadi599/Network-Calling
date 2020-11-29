@@ -6,19 +6,18 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ShareActionProvider;
-import androidx.core.view.MenuItemCompat;
 
 import com.example.networkcalling.R;
-import com.example.networkcalling.our_company.OurCompanyActivity;
-import com.example.networkcalling.profile.ProfileActivity;
 import com.example.networkcalling.adapter.EmployeesAdapter;
 import com.example.networkcalling.databinding.ActivityMainBinding;
 import com.example.networkcalling.model.Employee;
+import com.example.networkcalling.our_company.OurCompanyActivity;
+import com.example.networkcalling.profile.ProfileActivity;
 
 import java.util.List;
 
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void showEmployees(List<Employee> employees) {
         adapter.setEmployeeList(employees);
+        binding.progressView.setVisibility(View.GONE);
     }
 
     @Override
