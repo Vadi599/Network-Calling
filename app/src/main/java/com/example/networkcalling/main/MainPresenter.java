@@ -5,14 +5,16 @@ import android.content.Context;
 import com.example.networkcalling.model.Employee;
 import com.example.networkcalling.model.EmployeesResponse;
 import com.example.networkcalling.network.AppApiClient;
-import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
 import com.example.networkcalling.repository.all_employees.AllEmployeesRepository;
+import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter implements MainContract.Presenter {
 
@@ -37,7 +39,34 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void getDataFromServer() {
-        appApiClient.getEmployees().enqueue(new Callback<EmployeesResponse>() {
+        appApiClient.getEmployees()
+                .doOnSuccess(employeesResponse -> appApiClient.deleteEmployee(1).subscribe())
+                // subscribeOn - планировщик наших событий
+                .subscribeOn(Schedulers.io())
+                // observeOn - мы говорим цепочке событий выделить отдельный поток для обработки этих данных
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<EmployeesResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull EmployeesResponse employeesResponse) {
+                        List<Employee> employeeList = employeesResponse.getEmployees();
+                        repository.deleteAllRows();
+                        for (Employee employee : employeeList) {
+                            repository.insertEmployee(employee);
+                        }
+                        //view.showEmployees(employeeList);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+        /*appApiClient.getEmployees().enqueue(new Callback<EmployeesResponse>() {
             @Override
             public void onResponse(Call<EmployeesResponse> call, Response<EmployeesResponse> response) {
                 EmployeesResponse employeesResponse = response.body();
@@ -53,7 +82,7 @@ public class MainPresenter implements MainContract.Presenter {
             public void onFailure(Call<EmployeesResponse> call, Throwable t) {
                 view.showMessage(t.getMessage());
             }
-        });
+        });*/
     }
 
 }

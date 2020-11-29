@@ -10,6 +10,11 @@ import com.example.networkcalling.repository.all_employees.IAllEmployeesReposito
 import com.example.networkcalling.repository.our_company_employees.IOurCompanyRepository;
 import com.example.networkcalling.repository.our_company_employees.OurCompanyRepository;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,7 +45,33 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void getEmployeeData(long id) {
-        // Асинхронный способ
+
+        appApiClient.getEmployee(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<EmployeeResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull EmployeeResponse employeeResponse) {
+                        if (employeeResponse != null) {
+                            obtainedEmployee = employeeResponse.getEmployee();
+                            view.showEmployeeProfile(obtainedEmployee);
+                        } else {
+                            view.showMessage("Ошибка! Пользователь не найден. ID = " + id);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+
+        /*// Асинхронный способ
         appApiClient.getEmployee(id).enqueue(new Callback<EmployeeResponse>() {
             @Override
             public void onResponse(Call<EmployeeResponse> call, Response<EmployeeResponse> response) {
@@ -57,7 +88,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             public void onFailure(Call<EmployeeResponse> call, Throwable t) {
                 view.showMessage(t.getMessage());
             }
-        });
+        });*/
 
         /*// Синхронный
         try {
