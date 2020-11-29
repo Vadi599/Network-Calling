@@ -41,7 +41,10 @@ public class MainPresenter implements MainContract.Presenter, SingleObserver<Emp
     public void getDataFromServer() {
         appApiClient.getEmployees()
                 // only for demonstration chain
-                .doOnSuccess(employeesResponse -> appApiClient.deleteEmployee(1).subscribe())
+                .doOnSuccess(employeesResponse ->
+                        appApiClient.deleteEmployee(1)
+                                .subscribe(succes -> {
+                                }, error -> view.showMessage(error.getMessage())))
                 // subscribeOn - планировщик наших событий
                 .subscribeOn(Schedulers.io())
                 // observeOn - мы говорим цепочке событий выделить отдельный поток для обработки этих данных

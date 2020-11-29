@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
+        menu.findItem(R.id.action_create_employee).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
