@@ -16,7 +16,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter implements MainContract.Presenter, SingleObserver<EmployeesResponse> {
 
     private AppApiClient appApiClient = AppApiClient.get();
     private IAllEmployeesRepository repository;
@@ -40,49 +40,33 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void getDataFromServer() {
         appApiClient.getEmployees()
+                // only for demonstration chain
                 .doOnSuccess(employeesResponse -> appApiClient.deleteEmployee(1).subscribe())
                 // subscribeOn - планировщик наших событий
                 .subscribeOn(Schedulers.io())
                 // observeOn - мы говорим цепочке событий выделить отдельный поток для обработки этих данных
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<EmployeesResponse>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                .subscribe(this);
 
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull EmployeesResponse employeesResponse) {
-                        List<Employee> employeeList = employeesResponse.getEmployees();
-                        repository.deleteAllRows();
-                        for (Employee employee : employeeList) {
-                            repository.insertEmployee(employee);
-                        }
-                        view.showEmployees(employeeList);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-                });
-        /*appApiClient.getEmployees().enqueue(new Callback<EmployeesResponse>() {
-            @Override
-            public void onResponse(Call<EmployeesResponse> call, Response<EmployeesResponse> response) {
-                EmployeesResponse employeesResponse = response.body();
-                List<Employee> employeeList = employeesResponse.getEmployees();
-                repository.deleteAllRows();
-                for (Employee employee : employeeList) {
-                    repository.insertEmployee(employee);
-                }
-                view.showEmployees(employeeList);
-            }
-
-            @Override
-            public void onFailure(Call<EmployeesResponse> call, Throwable t) {
-                view.showMessage(t.getMessage());
-            }
-        });*/
     }
 
+    @Override
+    public void onSubscribe(@NonNull Disposable d) {
+
+    }
+
+    @Override
+    public void onSuccess(@NonNull EmployeesResponse employeesResponse) {
+        List<Employee> employeeList = employeesResponse.getEmployees();
+        repository.deleteAllRows();
+        for (Employee employee : employeeList) {
+            repository.insertEmployee(employee);
+        }
+        view.showEmployees(employeeList);
+    }
+
+    @Override
+    public void onError(@NonNull Throwable e) {
+
+    }
 }
