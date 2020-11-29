@@ -16,7 +16,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        /**
+         * Чтобы у пользователей у которых уже установлено приложение
+         * Добавить таблицу - нужно ее добавить в методе onUpgrade при условии что старая версия равно той
+         * которую мы ожидаем, и новая соответственно.
+         *
+         * Чтобы у пользователей у которых приложение НЕ установленно
+         * добавить создание таблицы к методу onCreate
+         *
+         */
+
         db.execSQL("create table " + TABLE_NAME_ALL_WORKERS + "(" +
+                "id integer primary key autoincrement," +
+                "employeeName text," +
+                "employeeSalary text," +
+                "employeeAge text" +
+                ");");
+
+        db.execSQL("create table " + TABLE_NAME_OUR_COMPANY_WORKERS + "(" +
                 "id integer primary key autoincrement," +
                 "employeeName text," +
                 "employeeSalary text," +
