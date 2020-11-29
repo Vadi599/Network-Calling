@@ -1,5 +1,6 @@
 package com.example.networkcalling.network;
 
+import com.example.networkcalling.model.EmployeeDeleteResponse;
 import com.example.networkcalling.model.EmployeeResponse;
 import com.example.networkcalling.model.EmployeesResponse;
 
@@ -14,5 +15,8 @@ public interface ApiService {
 
     @GET("employee/{id}")
     Call<EmployeeResponse> getEmployee(@Path("id") long id);
+
+    @GET("delete/{id}")
+    Call<EmployeeDeleteResponse> deleteEmployee(@Path("id") long id);
 
 }

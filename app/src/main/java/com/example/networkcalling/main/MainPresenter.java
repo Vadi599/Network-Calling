@@ -3,6 +3,8 @@ package com.example.networkcalling.main;
 import android.content.Context;
 
 import com.example.networkcalling.model.Employee;
+import com.example.networkcalling.model.EmployeeDeleteResponse;
+import com.example.networkcalling.model.EmployeeResponse;
 import com.example.networkcalling.model.EmployeesResponse;
 import com.example.networkcalling.network.AppApiClient;
 import com.example.networkcalling.repository.all_employees.IAllEmployeesRepository;
@@ -47,6 +49,27 @@ public class MainPresenter implements MainContract.Presenter {
                     repository.insertEmployee(employee);
                 }
                 view.showEmployees(employeeList);
+                appApiClient.deleteEmployee(1).enqueue(new Callback<EmployeeDeleteResponse>() {
+                    @Override
+                    public void onResponse(Call<EmployeeDeleteResponse> call, Response<EmployeeDeleteResponse> response) {
+                        appApiClient.getEmployee(1).enqueue(new Callback<EmployeeResponse>() {
+                            @Override
+                            public void onResponse(Call<EmployeeResponse> call, Response<EmployeeResponse> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<EmployeeResponse> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<EmployeeDeleteResponse> call, Throwable t) {
+
+                    }
+                });
             }
 
             @Override

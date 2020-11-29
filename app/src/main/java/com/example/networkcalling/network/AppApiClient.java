@@ -1,5 +1,6 @@
 package com.example.networkcalling.network;
 
+import com.example.networkcalling.model.EmployeeDeleteResponse;
 import com.example.networkcalling.model.EmployeeResponse;
 import com.example.networkcalling.model.EmployeesResponse;
 
@@ -21,5 +22,10 @@ public class AppApiClient {
     public Call<EmployeeResponse> getEmployee(long id) {
         return ServiceGenerator.getApiService()
                 .getEmployee(id);
+    }
+
+    public Call<EmployeeDeleteResponse> deleteEmployee(long id) {
+        return ServiceGenerator.getApiService()
+                .deleteEmployee(id);
     }
 }
