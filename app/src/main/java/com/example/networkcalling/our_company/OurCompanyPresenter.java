@@ -21,11 +21,11 @@ public class OurCompanyPresenter implements OurCompanyContract.Presenter {
     @Override
     public void getOurCompanyInfo() {
         List<Employee> employees = repository.getEmployees();
-        if (employees == null) {
-            view.showMessage("Нет данных в БД. Добавьте сотрудников в штат.");
-        } else {
-            view.showEmployees(employees);
-        }
+        //if (employees == null) {
+        //     view.showMessage("Нет данных в БД. Добавьте сотрудников в штат.");
+        // } else {
+        view.showEmployees(employees);
+        //}
     }
 
     @Override

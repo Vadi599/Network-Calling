@@ -1,25 +1,23 @@
 package com.example.networkcalling.our_company;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.networkcalling.R;
-import com.example.networkcalling.adapter.EmployeesAdapter;
 import com.example.networkcalling.adapter.EmployeesWithDeleteAdapter;
 import com.example.networkcalling.adapter.OnDeleteItemClickListener;
-import com.example.networkcalling.adapter.OnItemClickListener;
 import com.example.networkcalling.databinding.ActivityOurCompanyBinding;
 import com.example.networkcalling.databinding.CustomDialogAddEmployeeBinding;
-import com.example.networkcalling.databinding.CustomDialogDeleteBinding;
 import com.example.networkcalling.databinding.CustomDialogDeleteFromOurCompanyBinding;
 import com.example.networkcalling.databinding.CustomDialogEditEmployeeBinding;
-import com.example.networkcalling.databinding.ListItemEmployeeWithDeleteBinding;
 import com.example.networkcalling.model.Employee;
+
 import java.util.List;
 
 public class OurCompanyActivity extends AppCompatActivity implements OurCompanyContract.View {
@@ -53,6 +51,7 @@ public class OurCompanyActivity extends AppCompatActivity implements OurCompanyC
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.action_show_company).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -89,11 +88,13 @@ public class OurCompanyActivity extends AppCompatActivity implements OurCompanyC
             String name = customDialogAddEmployeeBinding.etName.getText().toString();
             String age = customDialogAddEmployeeBinding.etAge.getText().toString();
             String salary = customDialogAddEmployeeBinding.etSalary.getText().toString();
-
-            Employee employee = new Employee(name, salary, age);
-
-            presenter.addEmployee(employee);
-            customAlertBuilder.dismiss();
+            if(name.isEmpty() || age.isEmpty() || salary.isEmpty()){
+                showMessage("Введите данные всех полей!");
+            }else{
+                Employee employee = new Employee(name, salary, age);
+                presenter.addEmployee(employee);
+                customAlertBuilder.dismiss();
+            }
         });
         customAlertBuilder.show();
     }
@@ -164,7 +165,12 @@ public class OurCompanyActivity extends AppCompatActivity implements OurCompanyC
 
     @Override
     public void showEmployees(List<Employee> employees) {
-        adapter.setEmployeeList(employees);
+        if (employees == null) {
+            binding.viewFlipper.setDisplayedChild(1);
+        } else {
+            binding.viewFlipper.setDisplayedChild(0);
+            adapter.setEmployeeList(employees);
+        }
     }
 
     @Override
