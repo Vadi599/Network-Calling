@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.networkcalling.R;
 import com.example.networkcalling.adapter.EmployeesAdapter;
 import com.example.networkcalling.adapter.EmployeesWithDeleteAdapter;
@@ -22,7 +20,6 @@ import com.example.networkcalling.databinding.CustomDialogDeleteFromOurCompanyBi
 import com.example.networkcalling.databinding.CustomDialogEditEmployeeBinding;
 import com.example.networkcalling.databinding.ListItemEmployeeWithDeleteBinding;
 import com.example.networkcalling.model.Employee;
-
 import java.util.List;
 
 public class OurCompanyActivity extends AppCompatActivity implements OurCompanyContract.View {
@@ -49,7 +46,6 @@ public class OurCompanyActivity extends AppCompatActivity implements OurCompanyC
             @Override
             public void onDeleteItemClicked(Employee employee) {
                 deleteDialog(employee);
-                Toast.makeText(OurCompanyActivity.this, "Sample delete works", Toast.LENGTH_SHORT).show();
             }
         });
     }

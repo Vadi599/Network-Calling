@@ -54,6 +54,7 @@
             android:id="@+id/etSalary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="numberSigned"
             android:hint="@string/employee_add_salary"
             android:textColor="@color/purple_700"
             android:textSize="18sp" />
@@ -78,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/employee_add_age"
+            android:inputType="numberSigned"
             android:textColor="@color/purple_700"
             android:textSize="18sp" />
 
