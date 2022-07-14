@@ -12,6 +12,9 @@ public interface MainContract {
         void showConcreteEmployee(Employee employee);
 
         void showMessage(String message);
+
+        void notShowLoading();
+
     }
 
     interface Presenter {

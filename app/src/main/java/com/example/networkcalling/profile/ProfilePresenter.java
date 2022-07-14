@@ -94,5 +94,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, SingleObserv
     @Override
     public void onError(@NonNull Throwable e) {
         view.showMessage("Ошибка! Пользователь не найден." + e.getMessage());
+        view.notShowLoading();
     }
 }

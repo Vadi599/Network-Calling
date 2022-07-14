@@ -8,6 +8,8 @@ public interface ProfileContract {
 
         void showMessage(String message);
 
+        void notShowLoading();
+
         void showSuccessfulAddedToCompany();
 
         void showSuccessfulDeletedFromCompany();

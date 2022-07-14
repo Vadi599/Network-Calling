@@ -67,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void showEmployees(List<Employee> employees) {
         adapter.setEmployeeList(employees);
+        notShowLoading();
+    }
+
+    @Override
+    public void notShowLoading() {
         binding.progressView.setVisibility(View.GONE);
     }
 

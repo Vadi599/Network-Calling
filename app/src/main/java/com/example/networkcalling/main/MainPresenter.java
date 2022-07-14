@@ -70,6 +70,7 @@ public class MainPresenter implements MainContract.Presenter, SingleObserver<Emp
 
     @Override
     public void onError(@NonNull Throwable e) {
-
+        view.showMessage("Ошибка! Пользователь не найден." + e.getMessage());
+        view.notShowLoading();
     }
 }

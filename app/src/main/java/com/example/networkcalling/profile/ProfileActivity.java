@@ -66,7 +66,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
                 .setView(customDialogDeleteBinding.getRoot())
                 .create();
 
-        customDialogDeleteBinding.btnCancel.setOnClickListener(v -> { customAlertBuilder.dismiss(); });
+        customDialogDeleteBinding.btnCancel.setOnClickListener(v -> {
+            customAlertBuilder.dismiss();
+        });
         customDialogDeleteBinding.btnOk.setOnClickListener(v -> {
             presenter.deleteFromCompanyEmployee();
             customAlertBuilder.dismiss();
@@ -105,6 +107,10 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void notShowLoading() {
+        binding.progressView.setVisibility(View.GONE);
+    }
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
